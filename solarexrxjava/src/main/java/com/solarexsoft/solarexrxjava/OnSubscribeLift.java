@@ -17,8 +17,10 @@ public class OnSubscribeLift<T, R> implements ObservableOnSubscribe<R> {
 
     public OnSubscribeLift(ObservableOnSubscribe<T> onSubscribe, Function<? super T, ? extends R> function) {
         if (RxJavaPlugins.isDebug()) {
-            Log.d(TAG, this + ",parent = " + onSubscribe);
-            Thread.dumpStack();
+            Log.d(TAG, "this = " + this + ",parent = " + onSubscribe);
+            if (RxJavaPlugins.isShowStackTrace()) {
+                Thread.dumpStack();
+            }
         }
         this.parent = onSubscribe;
         this.operator = new OperatorMap<>(function);
@@ -26,13 +28,17 @@ public class OnSubscribeLift<T, R> implements ObservableOnSubscribe<R> {
     @Override
     public void subscribe(Observer<? super R> observer) {
         if (RxJavaPlugins.isDebug()) {
-            Log.d(TAG, this + " subscribe " + Thread.currentThread().getName() + ",observer = " + observer);
-            Thread.dumpStack();
+            Log.d(TAG, "this = " + this + " subscribe " + Thread.currentThread().getName() + ",observer = " + observer);
+            if (RxJavaPlugins.isShowStackTrace()) {
+                Thread.dumpStack();
+            }
         }
         Observer<? super T> st = operator.apply(observer);
         if (RxJavaPlugins.isDebug()) {
-            Log.d(TAG, this + " subscribe " + Thread.currentThread().getName() + ", st = " + st);
-            Thread.dumpStack();
+            Log.d(TAG, "this = " + this + " subscribe " + Thread.currentThread().getName() + ", st = " + st);
+            if (RxJavaPlugins.isShowStackTrace()) {
+                Thread.dumpStack();
+            }
         }
         parent.subscribe(st);
     }

@@ -10,6 +10,7 @@ package com.solarexsoft.solarexrxjava;
 
 public class RxJavaPlugins {
     private static boolean isDebug;
+    private static boolean showStackTrace;
 
     public static void openDebug() {
         isDebug = true;
@@ -21,5 +22,17 @@ public class RxJavaPlugins {
 
     public static boolean isDebug() {
         return isDebug;
+    }
+
+    public static boolean isShowStackTrace() {
+        return showStackTrace;
+    }
+
+    public static void openStackTrace() {
+        showStackTrace = true;
+    }
+
+    public static void closeStackTrace() {
+        showStackTrace = false;
     }
 }

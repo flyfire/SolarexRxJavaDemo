@@ -20,8 +20,10 @@ public class OnSubscribeMain<T> implements ObservableOnSubscribe<T> {
 
     public OnSubscribeMain(Observable<T> parent) {
         if (RxJavaPlugins.isDebug()) {
-            Log.d(TAG, this + ",parent = " + parent);
-            Thread.dumpStack();
+            Log.d(TAG, "this = " + this + ",parent = " + parent);
+            if (RxJavaPlugins.isShowStackTrace()) {
+                Thread.dumpStack();
+            }
         }
         this.parent = parent;
         this.handler = new Handler(Looper.getMainLooper());
@@ -31,14 +33,18 @@ public class OnSubscribeMain<T> implements ObservableOnSubscribe<T> {
     public void subscribe(final Observer<? super T> observer) {
         if (RxJavaPlugins.isDebug()) {
             Log.d(TAG, "parent = " + parent + ",this = " + this + " subscribe " + Thread.currentThread().getName());
-            Thread.dumpStack();
+            if (RxJavaPlugins.isShowStackTrace()) {
+                Thread.dumpStack();
+            }
         }
         handler.post(new Runnable() {
             @Override
             public void run() {
                 if (RxJavaPlugins.isDebug()) {
                     Log.d(TAG, this + " run " + Thread.currentThread().getName());
-                    Thread.dumpStack();
+                    if (RxJavaPlugins.isShowStackTrace()) {
+                        Thread.dumpStack();
+                    }
                 }
                 parent.subscribe(observer);
             }

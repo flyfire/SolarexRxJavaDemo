@@ -17,8 +17,10 @@ public class OperatorMap<T, R> implements Operator<R, T> {
 
     public OperatorMap(Function<? super T, ? extends R> function) {
         if (RxJavaPlugins.isDebug()) {
-            Log.d(TAG, this + " --> " + Thread.currentThread().getName());
-            Thread.dumpStack();
+            Log.d(TAG, "this = " + this + " --> " + Thread.currentThread().getName());
+            if (RxJavaPlugins.isShowStackTrace()) {
+                Thread.dumpStack();
+            }
         }
         this.function = function;
     }
@@ -27,7 +29,9 @@ public class OperatorMap<T, R> implements Operator<R, T> {
     public Observer<? super T> apply(Observer<? super R> observer) {
         if (RxJavaPlugins.isDebug()) {
             Log.d(TAG, "observer = " + observer + ",this = " + this + " apply " + Thread.currentThread().getName());
-            Thread.dumpStack();
+            if (RxJavaPlugins.isShowStackTrace()) {
+                Thread.dumpStack();
+            }
         }
         return new MapSubscriber<>(observer, function);
     }
@@ -39,8 +43,10 @@ public class OperatorMap<T, R> implements Operator<R, T> {
 
         public MapSubscriber(Observer<? super R> actual, Function<? super T, ? extends R> transform) {
             if (RxJavaPlugins.isDebug()) {
-                Log.d(TAG, "actual = " + actual + " --> " + Thread.currentThread().getName());
-                Thread.dumpStack();
+                Log.d(TAG, "this = " + this + ",actual = " + actual + " --> " + Thread.currentThread().getName());
+                if (RxJavaPlugins.isShowStackTrace()) {
+                    Thread.dumpStack();
+                }
             }
             this.actual = actual;
             this.transform = transform;
@@ -50,7 +56,9 @@ public class OperatorMap<T, R> implements Operator<R, T> {
         public void onNext(T t) {
             if (RxJavaPlugins.isDebug()) {
                 Log.d(TAG, this + " onNext " + t + Thread.currentThread().getName());
-                Thread.dumpStack();
+                if (RxJavaPlugins.isShowStackTrace()) {
+                    Thread.dumpStack();
+                }
             }
             if (RxJavaPlugins.isDebug()) {
                 Log.d(TAG, this + " onNext " + t +  "before transform");

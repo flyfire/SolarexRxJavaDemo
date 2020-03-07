@@ -55,13 +55,13 @@ public class OperatorMap<T, R> implements Operator<R, T> {
         @Override
         public void onNext(T t) {
             if (RxJavaPlugins.isDebug()) {
-                Log.d(TAG, this + " onNext " + t + Thread.currentThread().getName());
+                Log.d(TAG, this + " onNext " + t + " --> " + Thread.currentThread().getName());
                 if (RxJavaPlugins.isShowStackTrace()) {
                     Thread.dumpStack();
                 }
             }
             if (RxJavaPlugins.isDebug()) {
-                Log.d(TAG, this + " onNext " + t +  "before transform");
+                Log.d(TAG, this + " onNext " + t +  " before transform");
             }
             R r = transform.apply(t);
             if (RxJavaPlugins.isDebug()) {

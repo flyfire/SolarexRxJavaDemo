@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Observable.create(new ObservableOnSubscribe<String>() {
                     @Override
                     public void subscribe(Observer<? super String> observer) {
-                        Log.d(TAG, "normal before subscribe --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "this = " + this + ",normal before subscribe --> " + Thread.currentThread().getName());
                         observer.onNext("solarex");
-                        Log.d(TAG, "normal after subscribe --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "this = " + this + ",normal after subscribe --> " + Thread.currentThread().getName());
                     }
                 }).subscribe(new Observer<String>() {
                     @Override
@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Observable.create(new ObservableOnSubscribe<String>() {
                     @Override
                     public void subscribe(Observer<? super String> observer) {
-                        Log.d(TAG, "map before subscribe --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "this = " + this + ",map before subscribe --> " + Thread.currentThread().getName());
                         observer.onNext("solarex");
-                        Log.d(TAG, "map after subscribe --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "this = " + this + ",map after subscribe --> " + Thread.currentThread().getName());
                     }
                 }).map(new Function<String, Bitmap>() {
                     @Override
                     public Bitmap apply(String s) {
-                        Log.d(TAG, "map apply " + s + " --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "this = " + this + ",map apply " + s + " --> " + Thread.currentThread().getName());
                         return Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
                     }
                 }).subscribe(new Observer<Bitmap>() {
@@ -93,14 +93,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Observable.create(new ObservableOnSubscribe<String>() {
                     @Override
                     public void subscribe(Observer<? super String> observer) {
-                        Log.d(TAG, "io before subscribe --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "this = " + this + ",io before subscribe --> " + Thread.currentThread().getName());
                         observer.onNext("solarex");
-                        Log.d(TAG, "io after subscribe --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "this = " + this + ",io after subscribe --> " + Thread.currentThread().getName());
                     }
                 }).subscribeOnIO().subscribe(new Observer<String>() {
                     @Override
                     public void onNext(String s) {
-                        Log.d(TAG, "io " + this + " onNext " + s + " --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "this = " + this + ",io " + this + " onNext " + s + " --> " + Thread.currentThread().getName());
                     }
 
                     @Override
@@ -122,14 +122,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Observable.create(new ObservableOnSubscribe<String>() {
                             @Override
                             public void subscribe(Observer<? super String> observer) {
-                                Log.d(TAG, "main before subscribe --> " + Thread.currentThread().getName());
+                                Log.d(TAG, "this = " + this + ",main before subscribe --> " + Thread.currentThread().getName());
                                 observer.onNext("solarex");
-                                Log.d(TAG, "main after subscribe --> " + Thread.currentThread().getName());
+                                Log.d(TAG, "this = " + this + ",main after subscribe --> " + Thread.currentThread().getName());
                             }
                         }).subscribeOnMain().subscribe(new Observer<String>() {
                             @Override
                             public void onNext(String s) {
-                                Log.d(TAG, "main " + this + " onNext " + s + " --> " + Thread.currentThread().getName());
+                                Log.d(TAG, "this = " + this + ",main " + this + " onNext " + s + " --> " + Thread.currentThread().getName());
                             }
 
                             @Override

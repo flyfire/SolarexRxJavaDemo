@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }).subscribeOnIO().subscribe(new Observer<String>() {
                     @Override
                     public void onNext(String s) {
-                        Log.d(TAG, "io " + this + " onNext " + bitmap + " --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "io " + this + " onNext " + s + " --> " + Thread.currentThread().getName());
                     }
 
                     @Override
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }).subscribeOnMain().subscribe(new Observer<String>() {
                             @Override
                             public void onNext(String s) {
-                                Log.d(TAG, "main " + this + " onNext " + bitmap + " --> " + Thread.currentThread().getName());
+                                Log.d(TAG, "main " + this + " onNext " + s + " --> " + Thread.currentThread().getName());
                             }
 
                             @Override
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }).subscribeOnIO().subscribeOnMain().subscribe(new Observer<String>() {
                     @Override
                     public void onNext(String s) {
-                        Log.d(TAG, "io/main " + this + " onNext " + bitmap + " --> " + Thread.currentThread().getName());
+                        Log.d(TAG, "io/main " + this + " onNext " + s + " --> " + Thread.currentThread().getName());
                     }
 
                     @Override

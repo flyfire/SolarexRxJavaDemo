@@ -8,5 +8,5 @@ package com.solarexsoft.solarexrxjava;
  * </pre>
  */
 
-public interface ObservableOnSubscribe<T> extends Action1<Observer<? extends T>> {
+public interface ObservableOnSubscribe<T> extends Action1<Observer<? super T>> {
 }
